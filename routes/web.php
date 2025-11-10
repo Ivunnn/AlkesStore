@@ -7,6 +7,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\UserController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -27,15 +29,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 // 🏪 Shop (Vendor)
 Route::middleware('auth')->group(function () {
 
-    Route::get('/shops', [ShopController::class, 'index'])->name('shops.index');
-    Route::get('/shops/create', [ShopController::class, 'create'])->name('shops.create');
-    Route::post('/shops', [ShopController::class, 'store'])->name('shops.store');
-    Route::post('/shops/{id}/status', [ShopController::class, 'updateStatus'])->middleware('can:isAdmin');
+    Route::get('/products', [ProductController::class, 'userIndex'])->name('user.products.index');
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('user.products.show');
 
-    // 🛒 Products
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 
     // 🛍️ Cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -47,8 +43,37 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/orders/history', [OrderController::class, 'history'])->name('orders.history');
 
-    // 📊 Reports
-    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
-    Route::post('/reports/generate', [ReportController::class, 'generate'])->name('reports.generate');
+    // Route::get('/reports', [ReportController::class, 'index'])->name('admin.reports.index');
+    // Route::post('/reports/generate', [ReportController::class, 'generate'])->name('admin.reports.generate');
+
 });
+
+// 👇 Admin Routes
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    // 📊 Reports
+    Route::get('/admin/reports', [ReportController::class, 'index'])->name('admin.reports.index');
+    Route::post('/admin/reports/generate', [ReportController::class, 'generate'])->name('admin.reports.generate');
+    Route::delete('/admin/reports/{id}', [ReportController::class, 'destroy'])->name('admin.reports.destroy');
+
+    Route::get('/admin/shops', [ShopController::class, 'index'])->name('admin.shops.index');
+    Route::get('/admin/shops/create', [ShopController::class, 'create'])->name('admin.shops.create');
+    Route::post('/admin/shops', [ShopController::class, 'store'])->name('admin.shops.store');
+    Route::post('/admin/shops/{id}/update-status', [ShopController::class, 'updateStatus'])->name('shops.updateStatus');
+
+    // 🛒 Products
+    Route::get('/admin/products', [ProductController::class, 'index'])->name('admin.products.index');
+    Route::get('/admin/products/create', [ProductController::class, 'create'])->name('admin.products.create');
+    Route::post('/admin/products', [ProductController::class, 'store'])->name('admin.products.store');
+    Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+
+    Route::resource('admin/users', UserController::class)->names([
+        'index' => 'admin.users.index',
+        'edit' => 'admin.users.edit',
+        'update' => 'admin.users.update',
+        'destroy' => 'admin.users.destroy',
+    ])->except(['create', 'store', 'show']);
+});
+
 

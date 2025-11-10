@@ -12,7 +12,7 @@ class ReportController extends Controller
     public function index()
     {
         $reports = Report::where('user_id', Auth::id())->get();
-        return view('reports.index', compact('reports'));
+        return view('admin.reports.index', compact('reports'));
     }
 
     public function generate()
@@ -28,5 +28,13 @@ class ReportController extends Controller
         );
 
         return back()->with('success', 'Laporan penjualan bulan ini berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $report = Report::where('user_id', Auth::id())->findOrFail($id);
+        $report->delete();
+
+        return back()->with('success', 'Laporan berhasil dihapus.');
     }
 }

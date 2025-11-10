@@ -38,6 +38,14 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            // Jika admin -> arahkan ke dashboard admin
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard')->with('success', 'Selamat datang, Admin!');
+            }
+
+            // Jika bukan admin -> ke halaman utama
             return redirect('/')->with('success', 'Berhasil login');
         }
 

@@ -10,7 +10,7 @@
             <h1 class="fw-bold mb-3">Selamat Datang di <span class="text-primary">AlkesStore</span></h1>
             <p class="lead text-muted">Tempat terbaik untuk menemukan alat kesehatan berkualitas dengan harga terjangkau.
             </p>
-            <a href="{{ route('products.index') }}" class="btn btn-primary btn-lg mt-3">Lihat Produk</a>
+            <a href="{{ route('user.products.index') }}" class="btn btn-primary btn-lg mt-3">Lihat Produk</a>
         </div>
 
         {{-- Kategori Section --}}
@@ -49,7 +49,7 @@
                                 <div class="mt-auto">
                                     <p class="fw-bold text-success mb-2">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
                                     <div class="d-flex justify-content-between">
-                                        <a href="{{ route('products.show', $product->id) }}"
+                                        <a href="{{ route('user.products.show', $product->id) }}"
                                             class="btn btn-outline-primary btn-sm">Detail</a>
                                         <form action="{{ route('cart.add', $product->id) }}" method="POST">
                                             @csrf

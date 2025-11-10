@@ -11,12 +11,12 @@ class ShopController extends Controller
     public function index()
     {
         $shops = Shop::where('user_id', Auth::id())->get();
-        return view('shops.index', compact('shops'));
+        return view('admin.shops.index', compact('shops'));
     }
 
     public function create()
     {
-        return view('shops.create');
+        return view('admin.shops.create');
     }
 
     public function store(Request $request)
@@ -33,7 +33,7 @@ class ShopController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->route('shops.index')->with('success', 'Toko berhasil diajukan, menunggu persetujuan admin.');
+        return redirect()->route('admin.shops.index')->with('success', 'Toko berhasil diajukan, menunggu persetujuan admin.');
     }
 
     public function updateStatus(Request $request, $id)

@@ -13,14 +13,14 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::latest()->paginate(10);
-        return view('products.index', compact('products'));
+        return view('admin.products.index', compact('products'));
     }
 
     public function create()
     {
         $categories = Category::all();
         $shops = Shop::where('user_id', Auth::id())->where('status', 'approved')->get();
-        return view('products.create', compact('categories', 'shops'));
+        return view('admin.products.create', compact('categories', 'shops'));
     }
 
     public function store(Request $request)
@@ -46,6 +46,32 @@ class ProductController extends Controller
             'image' => $imagePath,
         ]);
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan.');
+        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil ditambahkan.');
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+
+        // Hapus gambar jika ada
+        if ($product->image && file_exists(storage_path('app/public/' . $product->image))) {
+            unlink(storage_path('app/public/' . $product->image));
+        }
+
+        $product->delete();
+
+        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dihapus.');
+    }
+
+    public function userIndex()
+    {
+        $products = Product::with('category', 'shop')->latest()->paginate(12);
+        return view('user.products.index', compact('products'));
+    }
+
+    public function show($id)
+    {
+        $product = Product::with('category', 'shop')->findOrFail($id);
+        return view('user.products.show', compact('product'));
     }
 }

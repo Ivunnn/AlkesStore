@@ -17,7 +17,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('products.index') }}"
+                    <a href="{{ route('user.products.index') }}"
                         class="nav-link {{ request()->routeIs('products.*') ? 'active text-primary fw-semibold' : '' }}">
                         Produk
                     </a>
