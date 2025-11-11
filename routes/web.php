@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ProductController;
@@ -9,7 +10,10 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
-
+use App\Http\Controllers\Vendor\VendorDashboardController;
+use App\Http\Controllers\Vendor\VendorProductController;
+use App\Http\Controllers\Vendor\VendorShopController;
+use App\Http\Controllers\Vendor\VendorReportController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -28,6 +32,26 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 // 🏪 Shop (Vendor)
 Route::middleware('auth')->group(function () {
+    Route::get('/vendor/dashboard', function () {
+        return view('toko.dashboard');
+    })->middleware(['auth'])->name('vendor.dashboard');
+    Route::prefix('vendor')->middleware(['auth'])->group(function () {
+        Route::get('/products', [VendorProductController::class, 'index'])->name('vendor.products.index');
+        Route::get('/products/create', [VendorProductController::class, 'create'])->name('vendor.products.create');
+        Route::post('/products', [VendorProductController::class, 'store'])->name('vendor.products.store');
+        Route::delete('/products/{id}', [VendorProductController::class, 'destroy'])->name('vendor.products.destroy');
+    });
+
+    Route::middleware(['auth'])->prefix('vendor')->name('vendor.')->group(function () {
+        Route::get('/reports', [VendorReportController::class, 'index'])->name('reports.index');
+        Route::delete('/reports/{id}', [VendorReportController::class, 'destroy'])->name('reports.destroy');
+    });
+
+    Route::middleware(['auth'])->prefix('vendor')->name('vendor.')->group(function () {
+        Route::get('/shops', [VendorShopController::class, 'index'])->name('shops.index');
+        Route::get('/shops/create', [VendorShopController::class, 'create'])->name('shops.create');
+        Route::post('/shops', [VendorShopController::class, 'store'])->name('shops.store');
+    });
 
     Route::get('/products', [ProductController::class, 'userIndex'])->name('user.products.index');
     Route::get('/products/{id}', [ProductController::class, 'show'])->name('user.products.show');
@@ -60,6 +84,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/shops', [ShopController::class, 'index'])->name('admin.shops.index');
     Route::get('/admin/shops/create', [ShopController::class, 'create'])->name('admin.shops.create');
     Route::post('/admin/shops', [ShopController::class, 'store'])->name('admin.shops.store');
+    Route::delete('/shops/{id}', [ShopController::class, 'destroy'])->name('admin.shops.destroy');
     Route::post('/admin/shops/{id}/update-status', [ShopController::class, 'updateStatus'])->name('shops.updateStatus');
 
     // 🛒 Products
@@ -68,12 +93,9 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::post('/admin/products', [ProductController::class, 'store'])->name('admin.products.store');
     Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
 
-    Route::resource('admin/users', UserController::class)->names([
-        'index' => 'admin.users.index',
-        'edit' => 'admin.users.edit',
-        'update' => 'admin.users.update',
-        'destroy' => 'admin.users.destroy',
-    ])->except(['create', 'store', 'show']);
+    Route::prefix('admin')->name('admin.')->middleware(['auth', 'isAdmin'])->group(function () {
+        Route::resource('users', UserController::class)->except(['show']);
+    });
 });
 
 

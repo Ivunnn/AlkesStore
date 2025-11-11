@@ -41,7 +41,7 @@
                                 <span class="badge bg-danger">Ditolak</span>
                             @endif
                         </td>
-                        <td>
+                        <td class="d-flex gap-2">
                             @if(Auth::user()->role === 'admin')
                                 <form action="{{ route('shops.updateStatus', $shop->id) }}" method="POST" class="d-flex gap-1">
                                     @csrf
@@ -52,9 +52,14 @@
                                     </select>
                                     <button class="btn btn-sm btn-success">Update</button>
                                 </form>
-                            @else
-                                <em>Tidak ada tindakan</em>
                             @endif
+
+                            {{-- Tombol hapus --}}
+                            <form action="{{ route('admin.shops.destroy', $shop->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus toko ini?')" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger">Hapus</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

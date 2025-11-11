@@ -43,4 +43,18 @@ class ShopController extends Controller
 
         return back()->with('success', 'Status toko berhasil diperbarui.');
     }
+
+    public function destroy($id)
+    {
+        $shop = Shop::findOrFail($id);
+
+        // Hanya admin atau pemilik toko yang boleh hapus
+        if (Auth::user()->role !== 'admin' && $shop->user_id !== Auth::id()) {
+            abort(403, 'Tidak diizinkan menghapus toko ini.');
+        }
+
+        $shop->delete();
+
+        return back()->with('success', 'Toko berhasil dihapus.');
+    }
 }

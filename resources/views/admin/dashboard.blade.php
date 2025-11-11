@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        {{-- <div class="col-md-3">
             <div class="card shadow-sm border-0">
                 <div class="card-body text-center">
                     <i class="bi bi-basket fs-1 text-warning"></i>
@@ -42,7 +42,7 @@
                     <a href="{{ route('orders.history') }}" class="btn btn-sm btn-warning mt-2">Lihat</a>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="col-md-3">
             <div class="card shadow-sm border-0">

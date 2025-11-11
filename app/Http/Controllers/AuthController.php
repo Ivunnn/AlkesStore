@@ -40,17 +40,27 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // Jika admin -> arahkan ke dashboard admin
+            // Cegah session fixation
+            $request->session()->regenerate();
+
+            // Arahkan sesuai role
             if ($user->role === 'admin') {
-                return redirect()->route('admin.dashboard')->with('success', 'Selamat datang, Admin!');
+                return redirect()->route('admin.dashboard')
+                    ->with('success', 'Selamat datang, Admin!');
             }
 
-            // Jika bukan admin -> ke halaman utama
-            return redirect('/')->with('success', 'Berhasil login');
+            if ($user->role === 'vendor') {
+                return redirect()->route('vendor.dashboard')
+                    ->with('success', 'Selamat datang di dashboard mitra!');
+            }
+
+            // Default untuk customer
+            return redirect('/')->with('success', 'Berhasil login!');
         }
 
         return back()->with('error', 'Email atau password salah');
     }
+
 
     // 🔹 Logout
     public function logout()
