@@ -139,9 +139,9 @@
             <i class="bi bi-box-seam"></i> Produk
         </a>
 
-        <a href="{{ route('admin.shops.index') }}" class="{{ request()->is('admin/shops') ? 'active' : '' }}">
+        {{-- <a href="{{ route('admin.shops.index') }}" class="{{ request()->is('admin/shops') ? 'active' : '' }}">
             <i class="bi bi-shop"></i> Toko
-        </a>
+        </a> --}}
 
         <a href="{{ route('admin.reports.index') }}" class="{{ request()->is('admin/reports') ? 'active' : '' }}">
             <i class="bi bi-book"></i> Report

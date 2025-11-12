@@ -42,9 +42,14 @@ class ShopController extends Controller
         $shop = Shop::findOrFail($id);
         $shop->update(['status' => $request->status]);
 
-        // Jika disetujui, ubah role user jadi vendor
         if ($request->status === 'approved') {
             $shop->user->update(['role' => 'vendor']);
+
+            // Logout user yang diupdate agar login ulang dengan role baru
+            if (auth()->id() === $shop->user->id) {
+                auth()->logout();
+                return redirect()->route('login')->with('info', 'Role Anda telah berubah, silakan login kembali.');
+            }
         }
 
         return back()->with('success', 'Status toko berhasil diperbarui.');
