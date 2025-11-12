@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\VendorRequest;
 
 class ShopController extends Controller
 {
@@ -40,6 +41,11 @@ class ShopController extends Controller
     {
         $shop = Shop::findOrFail($id);
         $shop->update(['status' => $request->status]);
+
+        // Jika disetujui, ubah role user jadi vendor
+        if ($request->status === 'approved') {
+            $shop->user->update(['role' => 'vendor']);
+        }
 
         return back()->with('success', 'Status toko berhasil diperbarui.');
     }

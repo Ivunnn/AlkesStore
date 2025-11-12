@@ -33,12 +33,13 @@
                         Keranjang
                     </a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a href="{{ route('user.orders.history') }}"
-                        class="nav-link px-3 {{ request()->routeIs('user.orders.*') ? 'active text-primary fw-semibold' : '' }}">
-                        Pesanan
+
+                <li class="nav-item">
+                    <a href="{{ route('user.feedback') }}"
+                        class="nav-link px-3 {{ request()->routeIs('user.cart.*') ? 'active text-primary fw-semibold' : '' }}">
+                        Feedback
                     </a>
-                </li> --}}
+                </li>
 
                 {{-- Kondisi Auth --}}
                 @guest

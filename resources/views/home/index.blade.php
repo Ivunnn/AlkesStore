@@ -37,8 +37,45 @@
             </div>
         @endif
 
+        <section class="text-center mb-5">
+            <h2 class="fw-bold mb-4">Kenapa <span class="text-primary">AlkesStore</span>?</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-10 col-sm-6 col-md-3">
+                    <div class="card border-0 shadow-sm p-4 h-100 d-flex align-items-center justify-content-center">
+                        <div class="text-primary fs-1 mb-3"><i class="fa-solid fa-shield-heart"></i></div>
+                        <h6 class="fw-semibold mb-2">Produk Terjamin</h6>
+                        <p class="small text-muted mb-0">Produk resmi bersertifikat Kemenkes RI, 100% berkualitas.</p>
+                    </div>
+                </div>
+                <div class="col-10 col-sm-6 col-md-3">
+                    <div class="card border-0 shadow-sm p-4 h-100 d-flex align-items-center justify-content-center">
+                        <div class="text-success fs-1 mb-3"><i class="fa-solid fa-truck-fast"></i></div>
+                        <h6 class="fw-semibold mb-2">Pengiriman Cepat</h6>
+                        <p class="small text-muted mb-0">Pengiriman aman dan cepat ke seluruh wilayah Indonesia.</p>
+                    </div>
+                </div>
+                <div class="col-10 col-sm-6 col-md-3">
+                    <div class="card border-0 shadow-sm p-4 h-100 d-flex align-items-center justify-content-center">
+                        <div class="text-danger fs-1 mb-3"><i class="fa-solid fa-hand-holding-medical"></i></div>
+                        <h6 class="fw-semibold mb-2">Banyak Pilihan</h6>
+                        <p class="small text-muted mb-0">Dari termometer, oksimeter, hingga kursi roda — semua ada!</p>
+                    </div>
+                </div>
+                <div class="col-10 col-sm-6 col-md-3">
+                    <div class="card border-0 shadow-sm p-4 h-100 d-flex align-items-center justify-content-center">
+                        <div class="text-warning fs-1 mb-3"><i class="fa-solid fa-headset"></i></div>
+                        <h6 class="fw-semibold mb-2">Layanan 24/7</h6>
+                        <p class="small text-muted mb-0">Tim support kami siap membantu kapan pun Anda butuh bantuan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         {{-- Produk Terbaru --}}
-        <h3 class="fw-bold mb-4 text-center text-md-start">Produk Terbaru</h3>
+        <h3 class="fw-bold mb-4 text-dark text-center text-md-start">
+            <i class="fa-solid fa-boxes-stacked me-2 text-primary"></i> Produk Terbaru
+        </h3>
+
         @if ($products->count() > 0)
             <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                 @foreach ($products as $product)

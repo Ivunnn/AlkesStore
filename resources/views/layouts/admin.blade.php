@@ -147,6 +147,10 @@
             <i class="bi bi-book"></i> Report
         </a>
 
+        <a href="{{ route('admin.feedback.index') }}" class="{{ request()->is('admin/reports') ? 'active' : '' }}">
+            <i class="bi bi-star"></i> Feedback
+        </a>
+
         <a href="{{ route('admin.users.index') }}" class="{{ request()->is('admin/users') ? 'active' : '' }}">
             <i class="bi bi-person"></i> User
         </a>

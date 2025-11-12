@@ -14,6 +14,7 @@ use App\Http\Controllers\Vendor\VendorDashboardController;
 use App\Http\Controllers\Vendor\VendorProductController;
 use App\Http\Controllers\Vendor\VendorShopController;
 use App\Http\Controllers\Vendor\VendorReportController;
+use App\Http\Controllers\FeedbackController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -32,6 +33,17 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 // 🏪 Shop (Vendor)
 Route::middleware('auth')->group(function () {
+
+    // Feedback untuk user (harus login)
+        Route::get('/user/feedback', [FeedbackController::class, 'index'])->name('user.feedback');
+        Route::post('/user/feedback', [FeedbackController::class, 'store'])->name('user.feedback.store');
+
+
+    // Feedback untuk admin
+    Route::middleware(['auth', 'is_admin'])->group(function () {
+        Route::get('/admin/feedback', [FeedbackController::class, 'adminIndex'])->name('admin.feedback.index');
+    });
+
     Route::get('/vendor/dashboard', function () {
         return view('toko.dashboard');
     })->middleware(['auth'])->name('vendor.dashboard');
@@ -88,6 +100,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/reports', [ReportController::class, 'index'])->name('admin.reports.index');
     Route::post('/admin/reports/generate', [ReportController::class, 'generate'])->name('admin.reports.generate');
     Route::delete('/admin/reports/{id}', [ReportController::class, 'destroy'])->name('admin.reports.destroy');
+
+     Route::get('/admin/feedback', [FeedbackController::class, 'adminIndex'])->name('admin.feedback.index');
 
     Route::get('/admin/shops', [ShopController::class, 'index'])->name('admin.shops.index');
     Route::get('/admin/shops/create', [ShopController::class, 'create'])->name('admin.shops.create');
