@@ -1,4 +1,4 @@
-# 🛍️ E-Commerce Laravel 12 — Multi Vendor & User Checkout System
+# 🛍️ AlkesStore — E-Commerce Alat KesehatanLaravel 12 — Multi Vendor & User Checkout System
 
 Proyek ini merupakan aplikasi e-commerce berbasis **Laravel 12** dengan fitur multi-role antara **User (Pembeli)** dan **Vendor (Penjual)**.  
 Vendor dapat mengelola produk, melihat laporan penjualan otomatis, sedangkan user dapat berbelanja, mengelola keranjang, dan melakukan checkout.
