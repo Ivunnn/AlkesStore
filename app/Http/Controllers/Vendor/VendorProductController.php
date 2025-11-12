@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
 
 class VendorProductController extends Controller
 {
@@ -29,12 +30,14 @@ class VendorProductController extends Controller
 
     public function create()
     {
-        return view('toko.products.create');
+        $categories = Category::all();
+        return view('toko.products.create', compact('categories'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'category_id' => 'required|exists:categories,id',
             'name' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',

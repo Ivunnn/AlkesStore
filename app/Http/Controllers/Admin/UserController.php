@@ -4,25 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    // 🔹 Tampilkan daftar semua user
     public function index()
     {
         $users = User::latest()->paginate(10);
         return view('admin.users.index', compact('users'));
     }
 
-    // 🔹 Tampilkan form tambah user
     public function create()
     {
         return view('admin.users.create');
     }
 
-    // 🔹 Simpan user baru
     public function store(Request $request)
     {
         $request->validate([
@@ -32,24 +30,33 @@ class UserController extends Controller
             'role' => 'required|in:admin,vendor,customer',
         ]);
 
-        User::create([
+        // 🔹 Buat user baru
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
         ]);
 
+        // 🔹 Jika user dibuat sebagai vendor, otomatis buat toko
+        if ($user->role === 'vendor') {
+            Shop::create([
+                'user_id' => $user->id,
+                'name' => 'Toko ' . $user->name,
+                'description' => 'Toko milik ' . $user->name,
+                'status' => 'approved', // bisa diubah ke 'pending' kalau butuh verifikasi admin
+            ]);
+        }
+
         return redirect()->route('admin.users.index')->with('success', 'User baru berhasil ditambahkan.');
     }
 
-    // 🔹 Edit role user
     public function edit($id)
     {
         $user = User::findOrFail($id);
         return view('admin.users.edit', compact('user'));
     }
 
-    // 🔹 Update role user
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -57,14 +64,21 @@ class UserController extends Controller
         ]);
 
         $user = User::findOrFail($id);
-        $user->update([
-            'role' => $request->role,
-        ]);
+        $user->update(['role' => $request->role]);
+
+        // 🔹 Jika role diubah menjadi vendor dan belum punya toko, buat otomatis
+        if ($user->role === 'vendor' && !$user->shop) {
+            Shop::create([
+                'user_id' => $user->id,
+                'name' => 'Toko ' . $user->name,
+                'description' => 'Toko milik ' . $user->name,
+                'status' => 'approved',
+            ]);
+        }
 
         return redirect()->route('admin.users.index')->with('success', 'Role pengguna berhasil diperbarui.');
     }
 
-    // 🔹 Hapus user
     public function destroy($id)
     {
         $user = User::findOrFail($id);

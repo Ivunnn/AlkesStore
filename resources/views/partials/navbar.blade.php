@@ -23,46 +23,46 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('cart.index') }}"
+                    <a href="{{ route('user.cart.index') }}"
                         class="nav-link {{ request()->routeIs('cart.*') ? 'active text-primary fw-semibold' : '' }}">
                         Keranjang
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('orders.history') }}"
+                    <a href="{{ route('user.orders.history') }}"
                         class="nav-link {{ request()->routeIs('orders.*') ? 'active text-primary fw-semibold' : '' }}">
                         Pesanan
                     </a>
                 </li>
 
                 @guest
-                <li class="nav-item">
-                    <a href="{{ route('login') }}" class="nav-link">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('register') }}" class="nav-link">Register</a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('register') }}" class="nav-link">Register</a>
+                    </li>
                 @else
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-user"></i> {{ Auth::user()->name }}
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li>
-                            <a class="dropdown-item" href="{{ route('orders.history') }}">Pesanan Saya</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button class="dropdown-item text-danger" type="submit">Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-user"></i> {{ Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('user.orders.history') }}">Pesanan Saya</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button class="dropdown-item text-danger" type="submit">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
                 @endguest
             </ul>
         </div>

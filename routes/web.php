@@ -43,9 +43,10 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['auth'])->prefix('vendor')->name('vendor.')->group(function () {
-        Route::get('/reports', [VendorReportController::class, 'index'])->name('reports.index');
-        Route::delete('/reports/{id}', [VendorReportController::class, 'destroy'])->name('reports.destroy');
+        Route::get('reports', [\App\Http\Controllers\Vendor\VendorReportController::class, 'index'])->name('reports.index');
+        Route::delete('reports/{id}', [\App\Http\Controllers\Vendor\VendorReportController::class, 'destroy'])->name('reports.destroy');
     });
+
 
     Route::middleware(['auth'])->prefix('vendor')->name('vendor.')->group(function () {
         Route::get('/shops', [VendorShopController::class, 'index'])->name('shops.index');
@@ -56,16 +57,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/products', [ProductController::class, 'userIndex'])->name('user.products.index');
     Route::get('/products/{id}', [ProductController::class, 'show'])->name('user.products.show');
 
-
     // 🛍️ Cart
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/{productId}', [CartController::class, 'store'])->name('cart.store');
-    Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::prefix('user')->name('user.')->middleware('auth')->group(function () {
+        Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+        Route::post('/cart/{productId}', [CartController::class, 'store'])->name('cart.store');
+        Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    });
 
     // 💳 Orders
-    Route::get('/checkout', [OrderController::class, 'checkout'])->name('orders.checkout');
-    Route::post('/checkout', [OrderController::class, 'store'])->name('orders.store');
-    Route::get('/orders/history', [OrderController::class, 'history'])->name('orders.history');
+    Route::get('/checkout', [OrderController::class, 'checkout'])->name('user.orders.checkout');
+    Route::post('/checkout', [OrderController::class, 'store'])->name('user.orders.store');
+    Route::get('/orders/history', [OrderController::class, 'history'])->name('user.orders.history');
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/checkout', [OrderController::class, 'checkout'])->name('user.checkout');
+        Route::post('/checkout', [OrderController::class, 'store'])->name('user.checkout.store');
+    });
+
 
     // Route::get('/reports', [ReportController::class, 'index'])->name('admin.reports.index');
     // Route::post('/reports/generate', [ReportController::class, 'generate'])->name('admin.reports.generate');

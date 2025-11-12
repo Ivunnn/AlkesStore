@@ -34,7 +34,6 @@
 
         {{-- Produk Terbaru --}}
         <h3 class="fw-bold mb-4">Produk Terbaru</h3>
-
         @if ($products->count() > 0)
             <div class="row">
                 @foreach ($products as $product)
@@ -51,10 +50,10 @@
                                     <div class="d-flex justify-content-between">
                                         <a href="{{ route('user.products.show', $product->id) }}"
                                             class="btn btn-outline-primary btn-sm">Detail</a>
-                                        <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                                        {{-- <form action="{{ route('cart.add', $product->id) }}" method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-success btn-sm">+ Keranjang</button>
-                                        </form>
+                                        </form> --}}
                                     </div>
                                 </div>
                             </div>

@@ -10,7 +10,11 @@ class VendorReportController extends Controller
 {
     public function index()
     {
-        $reports = Report::where('user_id', Auth::id())->get();
+        $reports = Report::with('shop')
+            ->where('user_id', Auth::id())
+            ->orderBy('report_month', 'desc')
+            ->get();
+
         return view('toko.reports.index', compact('reports'));
     }
 

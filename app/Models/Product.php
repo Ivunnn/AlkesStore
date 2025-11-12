@@ -10,7 +10,13 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'shop_id', 'category_id', 'name', 'description', 'price', 'stock', 'image',
+        'shop_id',
+        'category_id',
+        'name',
+        'description',
+        'price',
+        'stock',
+        'image',
     ];
 
     // 🔗 Relasi
@@ -23,6 +29,12 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
     public function carts()
     {

@@ -10,7 +10,10 @@ class Shop extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'name', 'description', 'status',
+        'user_id',
+        'name',
+        'description',
+        'status',
     ];
 
     // 🔗 Relasi
@@ -23,4 +26,10 @@ class Shop extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function shop()
+    {
+        return $this->hasOne(Shop::class);
+    }
+
 }

@@ -3,15 +3,16 @@
 @section('title', 'Checkout')
 
 @section('content')
-<div class="container py-5">
-    <h2 class="mb-4 fw-bold">Checkout</h2>
+    <div class="container mt-4">
+        <h3>Checkout</h3>
 
-    @if($carts->isEmpty())
-        <div class="alert alert-warning">Keranjang kamu masih kosong.</div>
-    @else
-        <div class="card shadow-sm p-4 mb-4">
-            <table class="table table-bordered align-middle">
-                <thead class="table-light">
+        @if($carts->isEmpty())
+            <div class="alert alert-warning">
+                Keranjang kamu kosong. <a href="{{ route('user.products.index') }}">Belanja sekarang</a>.
+            </div>
+        @else
+            <table class="table table-bordered mt-3">
+                <thead>
                     <tr>
                         <th>Produk</th>
                         <th>Harga</th>
@@ -21,36 +22,37 @@
                 </thead>
                 <tbody>
                     @php $total = 0; @endphp
-                    @foreach ($carts as $cart)
-                        @php $subtotal = $cart->product->price * $cart->quantity; @endphp
+                    @foreach($carts as $cart)
+                        @php $subtotal = $cart->product->price * $cart->quantity;
+                        $total += $subtotal; @endphp
                         <tr>
                             <td>{{ $cart->product->name }}</td>
-                            <td>Rp {{ number_format($cart->product->price, 0, ',', '.') }}</td>
+                            <td>Rp{{ number_format($cart->product->price, 0, ',', '.') }}</td>
                             <td>{{ $cart->quantity }}</td>
-                            <td>Rp {{ number_format($subtotal, 0, ',', '.') }}</td>
+                            <td>Rp{{ number_format($subtotal, 0, ',', '.') }}</td>
                         </tr>
-                        @php $total += $subtotal; @endphp
                     @endforeach
                 </tbody>
             </table>
 
-            <div class="d-flex justify-content-between align-items-center mt-3">
-                <h4 class="fw-bold mb-0">Total: Rp {{ number_format($total, 0, ',', '.') }}</h4>
-            </div>
-        </div>
+            <h4 class="mt-3">Total: <span class="text-success">Rp{{ number_format($total, 0, ',', '.') }}</span></h4>
 
-        <form action="{{ route('orders.store') }}" method="POST">
-            @csrf
-            <div class="mb-3">
-                <label for="payment_method" class="form-label">Metode Pembayaran</label>
-                <select name="payment_method" id="payment_method" class="form-select" required>
-                    <option value="">-- Pilih Metode Pembayaran --</option>
-                    <option value="transfer_bank">Transfer Bank</option>
-                    <option value="cod">Bayar di Tempat (COD)</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-success w-100">Proses Pesanan</button>
-        </form>
-    @endif
-</div>
+            <form action="{{ route('user.checkout.store') }}" method="POST" class="mt-4">
+                @csrf
+                <div class="mb-3">
+                    <label for="payment_method" class="form-label">Metode Pembayaran</label>
+                    <select name="payment_method" id="payment_method" class="form-control" required>
+                        <option value="">-- Pilih Metode Pembayaran --</option>
+                        <option value="transfer">Transfer Bank</option>
+                        <option value="cod">Bayar di Tempat (COD)</option>
+                        <option value="ewallet">E-Wallet</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-check-circle"></i> Buat Pesanan
+                </button>
+            </form>
+        @endif
+    </div>
 @endsection

@@ -23,6 +23,7 @@
                         <tr>
                             <th>#</th>
                             <th>Gambar</th>
+                            <th>Mitra</th>
                             <th>Nama Produk</th>
                             <th>Kategori</th>
                             <th>Harga</th>
@@ -43,6 +44,7 @@
                                         <span class="text-muted">Tidak ada</span>
                                     @endif
                                 </td>
+                                <td>{{ $product->shop->name ?? 'Tidak ada toko' }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->category->name ?? '-' }}</td>
                                 <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>

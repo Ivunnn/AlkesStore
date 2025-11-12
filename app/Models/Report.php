@@ -10,12 +10,21 @@ class Report extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'report_month', 'total_sales',
+        'user_id',
+        'shop_id',
+        'report_month',
+        'total_sales',
     ];
 
-    // 🔗 Relasi
+    // Relasi ke user (vendor)
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // Relasi ke toko
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class);
     }
 }
