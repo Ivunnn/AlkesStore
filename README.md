@@ -24,7 +24,7 @@ Vendor dapat mengelola produk, melihat laporan penjualan otomatis, sedangkan use
 
 ### 👑 Admin
 
--   Menggunakan **Filament Admin Panel** untuk memantau user, vendor, produk, dan laporan
+-   Menggunakan **Admin Panel** untuk memantau user, vendor, produk, dan laporan
 
 ---
 
