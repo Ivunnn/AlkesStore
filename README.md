@@ -33,8 +33,6 @@ Vendor dapat mengelola produk, melihat laporan penjualan otomatis, sedangkan use
 | Komponen          | Teknologi                                      |
 | ----------------- | ---------------------------------------------- |
 | Framework         | Laravel 12                                     |
-| Authentication    | Laravel Breeze / Auth bawaan                   |
-| UI Admin          |
 | Styling Framework | Bootstrap 5                                    |
 | Database          | MySQL                                          |
 | Library Tambahan  | Carbon, Eloquent Relationships, Blade Template |
