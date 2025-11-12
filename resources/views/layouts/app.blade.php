@@ -12,10 +12,22 @@
     {{-- Font Awesome --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-    {{-- Custom CSS (opsional) --}}
+    {{-- Custom CSS --}}
     <style>
+        /* Layout dasar */
+        html, body {
+            height: 100%;
+        }
+
         body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             background-color: #f8f9fa;
+        }
+
+        main {
+            flex: 1; /* Bagian utama agar mendorong footer ke bawah */
         }
 
         nav.navbar {
@@ -26,16 +38,15 @@
             background-color: #fff;
             border-top: 1px solid #ddd;
             padding: 20px 0;
-            margin-top: 40px;
         }
     </style>
 </head>
 
 <body>
-
     {{-- Navbar --}}
     @include('partials.navbar')
 
+    {{-- Pesan sukses / error --}}
     @if (session('success'))
         <div class="alert alert-success text-center mb-0 rounded-0">
             {{ session('success') }}
@@ -47,8 +58,7 @@
         </div>
     @endif
 
-
-    {{-- Konten Utama --}}
+    {{-- Konten utama --}}
     <main class="py-4">
         <div class="container">
             @yield('content')

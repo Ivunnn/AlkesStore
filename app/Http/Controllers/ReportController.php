@@ -12,16 +12,15 @@ class ReportController extends Controller
 {
     public function index()
     {
-        // Jika user adalah admin, tampilkan semua laporan
         if (Auth::user()->role === 'admin') {
-            $reports = Report::with('user')->latest()->get();
+            $reports = Report::with('user')->latest()->paginate(10); // 🔹 ubah get() jadi paginate()
         } else {
-            // Jika vendor, tampilkan hanya laporan miliknya
-            $reports = Report::where('user_id', Auth::id())->latest()->get();
+            $reports = Report::where('user_id', Auth::id())->latest()->paginate(10);
         }
 
         return view('admin.reports.index', compact('reports'));
     }
+
 
     public function generate()
     {
