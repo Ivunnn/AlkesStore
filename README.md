@@ -43,43 +43,43 @@ Vendor dapat mengelola produk, melihat laporan penjualan otomatis, sedangkan use
 
 ### Homepage
 
-![Halaman Utama](screenshots/homepage)
+![Halaman Utama](public/screenshots/homepage.png)
 
 ### Login
 
-![Login](screenshots/login)
+![Login](public/screenshots/login.png)
 
 ### Register
 
-![Register](screenshots/register)
+![Register](public/screenshots/register.png)
 
 ### User Feedback
 
-![Feedback](screenshots/UserFeedback)
+![Feedback](public/screenshots/UserFeedback.png)
 
 ### Cart
 
-![Cart](screenshots/cart)
+![Cart](public/screenshots/cart.png)
 
 ### Admin Dashboard
 
-![Admin Dashboard](screenshots/dashboardAdmin)
+![Admin Dashboard](public/screenshots/dashboardAdmin.png)
 
-### User Management
+### Admin User Management
 
-![User Management](screenshots/userManagement)
+![User Management](public/screenshots/userManagement.png)
 
 ### Vendor Dashboard
 
-![Vendor Dashboard](screenshots/vendorDashboard)
+![Vendor Dashboard](public/screenshots/vendorDashboard.png)
 
 ### Vendor Product Management
 
-![Vendor Product Management](screenshots/vendorProduct)
+![Vendor Product Management](public/screenshots/vendorProduct.png)
 
 ### Vendor Report
 
-![Vendor Report](screenshots/vendorReport)
+![Vendor Report](public/screenshots/vendorReport.png)
 
 ---
 
