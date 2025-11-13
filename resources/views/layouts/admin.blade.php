@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Panel')</title>
+    <title>Admin - AlkesStore</title>
+
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/30086736_v870-tang-06-removebg-preview.png') }}">
 
     {{-- Bootstrap 5 --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -87,22 +91,43 @@
             top: 15px;
             left: 15px;
             z-index: 1100;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         }
 
-        /* Mobile & Tablet Responsiveness */
+        /* =========================================================
+        ⭐ PERUBAHAN DI SINI: Mobile & Tablet Responsiveness ⭐
+        =========================================================
+        */
         @media (max-width: 992px) {
             .sidebar {
-                left: -230px;
+                /* Ganti dari 'left' ke 'top' untuk efek dropdown */
+                left: 0;
+                top: -100vh;
+                /* Sembunyikan di atas layar */
+
+                /* Ubah ukuran agar pas saat dropdown */
+                width: 100%;
+                height: auto;
+                /* Tinggi otomatis sesuai konten */
+
+                /* Beri padding di atas agar tidak tertutup tombol toggle */
+                padding-top: 70px;
+                padding-bottom: 20px;
+
+                /* Ganti shadow untuk dropdown */
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
             }
 
             .sidebar.active {
-                left: 0;
+                /* Tampilkan di posisi 0 (paling atas) saat aktif */
+                top: 0;
             }
 
             .content {
                 margin-left: 0;
                 padding: 20px;
+                /* Beri padding atas agar konten tidak mulai di bawah tombol toggle */
+                padding-top: 80px;
             }
 
             .sidebar-toggle {
@@ -110,12 +135,16 @@
             }
         }
 
+        /* ======================================================= */
+
+
         /* Tambahan visual improvement */
         .sidebar::-webkit-scrollbar {
             width: 6px;
         }
+
         .sidebar::-webkit-scrollbar-thumb {
-            background-color: rgba(255,255,255,0.3);
+            background-color: rgba(255, 255, 255, 0.3);
             border-radius: 10px;
         }
     </style>
@@ -147,8 +176,8 @@
             <i class="bi bi-book"></i> Report
         </a>
 
-        <a href="{{ route('admin.feedback.index') }}" class="{{ request()->is('admin/reports') ? 'active' : '' }}">
-            <i class="bi bi-star"></i> Feedback
+        <a href="{{ route('admin.feedback.index') }}" class="{{ request()->is('admin/feedback') ? 'active' : '' }}">
+            <i class="bi bi-star"></i> Ulasan
         </a>
 
         <a href="{{ route('admin.users.index') }}" class="{{ request()->is('admin/users') ? 'active' : '' }}">
@@ -174,11 +203,12 @@
     {{-- Bootstrap JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    {{-- Toggle Sidebar Script --}}
+    {{-- Toggle Sidebar Script (TIDAK PERLU DIUBAH) --}}
     <script>
-        document.getElementById('toggleSidebar').addEventListener('click', function() {
+        document.getElementById('toggleSidebar').addEventListener('click', function () {
             document.getElementById('sidebarMenu').classList.toggle('active');
         });
     </script>
 </body>
+
 </html>

@@ -103,11 +103,11 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 
      Route::get('/admin/feedback', [FeedbackController::class, 'adminIndex'])->name('admin.feedback.index');
 
-    Route::get('/admin/shops', [ShopController::class, 'index'])->name('admin.shops.index');
-    Route::get('/admin/shops/create', [ShopController::class, 'create'])->name('admin.shops.create');
-    Route::post('/admin/shops', [ShopController::class, 'store'])->name('admin.shops.store');
-    Route::delete('/shops/{id}', [ShopController::class, 'destroy'])->name('admin.shops.destroy');
-    Route::post('/admin/shops/{id}/update-status', [ShopController::class, 'updateStatus'])->name('shops.updateStatus');
+    // Route::get('/admin/shops', [ShopController::class, 'index'])->name('admin.shops.index');
+    // Route::get('/admin/shops/create', [ShopController::class, 'create'])->name('admin.shops.create');
+    // Route::post('/admin/shops', [ShopController::class, 'store'])->name('admin.shops.store');
+    // Route::delete('/shops/{id}', [ShopController::class, 'destroy'])->name('admin.shops.destroy');
+    // Route::post('/admin/shops/{id}/update-status', [ShopController::class, 'updateStatus'])->name('shops.updateStatus');
 
     // 🛒 Products
     Route::get('/admin/products', [ProductController::class, 'index'])->name('admin.products.index');

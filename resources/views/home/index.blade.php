@@ -10,9 +10,9 @@
             <h1 class="fw-bold mb-3 display-6 display-md-5">
                 Selamat Datang di <span class="text-primary">AlkesStore</span>
             </h1>
-            <p class="lead text-muted mb-4">
+            <h4 class="mb-4">
                 Temukan alat kesehatan berkualitas dengan harga terjangkau, siap dikirim ke seluruh Indonesia.
-            </p>
+            </h4>
             <a href="{{ route('user.products.index') }}" class="btn btn-primary btn-lg">
                 <i class="fa-solid fa-store me-2"></i> Lihat Produk
             </a>

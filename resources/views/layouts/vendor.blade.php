@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Dashboard Vendor')</title>
+    <title>Mitra - AlkesStore</title>
+
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/30086736_v870-tang-06-removebg-preview.png') }}">
 
     {{-- Bootstrap & Icons --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -130,11 +133,13 @@
             <i class="bi bi-speedometer2"></i> Dashboard
         </a>
 
-        <a href="{{ route('vendor.products.index') }}" class="{{ request()->routeIs('vendor.products*') ? 'active' : '' }}">
+        <a href="{{ route('vendor.products.index') }}"
+            class="{{ request()->routeIs('vendor.products*') ? 'active' : '' }}">
             <i class="bi bi-box-seam"></i> Produk Saya
         </a>
 
-        <a href="{{ route('vendor.reports.index') }}" class="{{ request()->routeIs('vendor.reports*') ? 'active' : '' }}">
+        <a href="{{ route('vendor.reports.index') }}"
+            class="{{ request()->routeIs('vendor.reports*') ? 'active' : '' }}">
             <i class="bi bi-graph-up"></i> Laporan
         </a>
 
@@ -144,7 +149,8 @@
 
         <hr>
 
-        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <a href="{{ route('logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="bi bi-box-arrow-right"></i> Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -156,7 +162,7 @@
     <div class="main">
         <nav class="navbar d-flex align-items-center">
             <button class="toggle-btn" id="toggleSidebar"><i class="bi bi-list"></i></button>
-            <span class="navbar-brand mb-0">Selamat datang, {{ Auth::user()->name }}</span>
+            <span class="navbar-brand mb-0">{{ Auth::user()->name }}</span>
         </nav>
 
         <div class="content">
@@ -177,4 +183,5 @@
         });
     </script>
 </body>
+
 </html>

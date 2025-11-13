@@ -53,8 +53,11 @@
                     <tbody>
                         @foreach ($products as $index => $product)
                             <tr>
-                                <td class="text-center fw-semibold">{{ $index + 1 }}</td>
-                                <td class="text-center">
+                                {{-- ⭐ data-label ditambahkan --}}
+                                <td class="text-center fw-semibold" data-label="#">{{ $index + 1 }}</td>
+
+                                {{-- ⭐ data-label ditambahkan --}}
+                                <td class="text-center" data-label="Gambar">
                                     @if ($product->image)
                                         <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
                                             class="img-thumbnail rounded" style="width: 60px; height: 60px; object-fit: cover;">
@@ -62,13 +65,23 @@
                                         <span class="text-muted small fst-italic">Tidak ada gambar</span>
                                     @endif
                                 </td>
-                                <td class="fw-medium">{{ $product->name }}</td>
-                                <td class="text-success fw-semibold">
+
+                                {{-- ⭐ data-label ditambahkan --}}
+                                <td class="fw-medium" data-label="Nama Produk">{{ $product->name }}</td>
+
+                                {{-- ⭐ data-label ditambahkan --}}
+                                <td class="text-success fw-semibold" data-label="Harga">
                                     Rp {{ number_format($product->price, 0, ',', '.') }}
                                 </td>
-                                <td class="text-center">{{ $product->stock }}</td>
-                                <td class="text-truncate" style="max-width: 250px;">{{ $product->description ?? '-' }}</td>
-                                <td class="text-center">
+
+                                {{-- ⭐ data-label ditambahkan --}}
+                                <td class="text-center" data-label="Stok">{{ $product->stock }}</td>
+
+                                {{-- ⭐ data-label ditambahkan (style dan class dihapus agar rapi di mobile) --}}
+                                <td data-label="Deskripsi">{{ $product->description ?? '-' }}</td>
+
+                                {{-- ⭐ data-label ditambahkan --}}
+                                <td class="text-center" data-label="Aksi">
                                     <form action="{{ route('vendor.products.destroy', $product->id) }}" method="POST"
                                         onsubmit="return confirm('Yakin ingin menghapus produk ini?')" class="d-inline">
                                         @csrf
@@ -88,6 +101,17 @@
 
     {{-- CSS tambahan untuk efek interaktif dan responsif --}}
     <style>
+        /* CSS untuk desktop agar 'Deskripsi' tidak terlalu panjang */
+        @media (min-width: 769px) {
+            td[data-label="Deskripsi"] {
+                max-width: 250px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        /* CSS Responsif untuk Mobile (Penyempurnaan) */
         @media (max-width: 768px) {
             h2 {
                 font-size: 1.5rem;
@@ -104,23 +128,61 @@
                 border-radius: 0.75rem;
                 padding: 0.75rem;
                 background-color: #fff;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             }
 
             table tbody td {
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
+                /* Menjaga label dan nilai tetap sejajar */
                 padding: 0.5rem 0;
                 font-size: 0.9rem;
+                border-bottom: 1px solid #f0f0f0;
+                /* Pemisah antar field */
+            }
+
+            table tbody tr td:last-child {
+                border-bottom: none;
+                /* Hapus pemisah untuk field terakhir */
             }
 
             table tbody td::before {
                 content: attr(data-label);
                 font-weight: 600;
                 color: #495057;
+                padding-right: 1rem;
+                /* Jarak antara label dan nilai */
+                text-align: left;
             }
 
+            /* Paksa semua konten di kanan agar rata kanan */
+            table tbody td>* {
+                text-align: right;
+            }
+
+            /* Penyesuaian khusus untuk kolom 'text-center' */
             td.text-center {
                 text-align: right !important;
+            }
+
+            /* Penyesuaian untuk kolom 'Deskripsi' agar bisa wrap */
+            td[data-label="Deskripsi"] {
+                white-space: normal;
+                text-align: right;
+            }
+
+            /* Penyesuaian untuk kolom 'Aksi' agar tombol full-width */
+            td[data-label="Aksi"] {
+                display: block;
+                /* Ubah dari flex ke block */
+                padding-top: 0.75rem;
+            }
+
+            td[data-label="Aksi"] form,
+            td[data-label="Aksi"] .btn {
+                width: 100%;
+                /* Buat tombol memenuhi 'card' */
             }
         }
     </style>

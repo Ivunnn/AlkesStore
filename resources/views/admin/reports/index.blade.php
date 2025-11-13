@@ -5,7 +5,7 @@
 @section('content')
     <div class="container-fluid px-3">
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
-            <h2 class="fw-bold mb-0 text-primary">📊 Laporan Penjualan</h2>
+            <h2 class="fw-bold mb-0 text-black">📊 Laporan Penjualan</h2>
 
             <form action="{{ route('admin.reports.generate') }}" method="POST" class="d-flex justify-content-end">
                 @csrf

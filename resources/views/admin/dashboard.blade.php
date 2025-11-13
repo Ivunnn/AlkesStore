@@ -27,35 +27,33 @@
                 </div>
             </div>
 
-            {{-- Card Toko --}}
+            {{-- Card Report --}}
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card shadow-sm border-0 h-100">
                     <div class="card-body text-center">
-                        <i class="bi bi-shop fs-1 text-success"></i>
-                        <h5 class="mt-3">Toko</h5>
-                        <p class="text-muted mb-1">Total: {{ \App\Models\Shop::count() }}</p>
-                        <a href="{{ route('admin.shops.index') }}" class="btn btn-sm btn-success mt-2 w-100">
+                        <i class="bi bi-book fs-1 text-success"></i>
+                        <h5 class="mt-3">Laporan</h5>
+                        <p class="text-muted mb-1">Total: {{ \App\Models\Report::count() }}</p>
+                        <a href="{{ route('admin.reports.index') }}" class="btn btn-sm btn-success mt-2 w-100">
                             Lihat
                         </a>
                     </div>
                 </div>
             </div>
 
-            {{-- Card Pesanan (jika ingin diaktifkan kembali) --}}
-            {{--
+            {{-- Card Feedback --}}
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card shadow-sm border-0 h-100">
                     <div class="card-body text-center">
-                        <i class="bi bi-basket fs-1 text-warning"></i>
-                        <h5 class="mt-3">Pesanan</h5>
-                        <p class="text-muted mb-1">Total: {{ \App\Models\Order::count() }}</p>
-                        <a href="{{ route('orders.history') }}" class="btn btn-sm btn-warning mt-2 w-100">
+                        <i class="bi bi-star fs-1 text-warning"></i>
+                        <h5 class="mt-3">Ulasan</h5>
+                        <p class="text-muted mb-1">Total: {{ \App\Models\Feedback::count() }}</p>
+                        <a href="{{ route('admin.feedback.index') }}" class="btn btn-sm btn-warning mt-2 w-100 text-light">
                             Lihat
                         </a>
                     </div>
                 </div>
             </div>
-            --}}
 
             {{-- Card Pengguna --}}
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">

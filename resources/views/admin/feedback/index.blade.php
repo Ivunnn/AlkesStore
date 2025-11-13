@@ -3,7 +3,9 @@
 @section('title', 'Daftar Feedback')
 
 @section('content')
-<h4 class="mb-4">Daftar Feedback Pengguna</h4>
+<h2 class="mb-4 fw-bold">
+    <i class="bi bi-star"></i> Ulasan Pengguna
+</h2>
 
 @if($feedbacks->isEmpty())
     <div class="alert alert-info">Belum ada feedback dari pengguna.</div>

@@ -87,11 +87,11 @@
                         <div>
                             <h6 class="mb-1">{{ $user->name }}</h6>
                             <p class="mb-1 text-muted small">{{ $user->email }}</p>
-                            <div class="mb-2">
-                                <span class="badge bg-{{ $user->role == 'admin' ? 'danger' : ($user->role == 'vendor' ? 'warning text-dark' : 'secondary') }}">
+                            <div class="mb-2 text-white">
+                                <span class="badge bg-{{ $user->role == 'admin' ? 'danger' : ($user->role == 'vendor' ? 'warning text-white' : 'secondary') }}">
                                     {{ ucfirst($user->role) }}
                                 </span>
-                                <small class="text-muted ms-2">Dibuat: {{ $user->created_at->format('d M Y') }}</small>
+                                <small class="ms-2">Dibuat: {{ $user->created_at->format('d M Y') }}</small>
                             </div>
                         </div>
 

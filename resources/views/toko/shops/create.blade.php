@@ -5,7 +5,7 @@
 @section('content')
     <div class="container py-4">
         <h2 class="fw-bold mb-4 text-dark d-flex align-items-center gap-2 flex-wrap text-center text-md-start">
-            🛍️ {{ isset($shop) ? 'Edit Toko' : 'Buat Toko Baru' }}
+            🛍️ {{ isset($shop) ? 'Edit Toko' : 'Ubah Profil' }}
         </h2>
 
         <div class="card shadow-sm border-0 rounded-4">
@@ -15,11 +15,11 @@
 
                     {{-- Nama Toko --}}
                     <div class="mb-3">
-                        <label for="name" class="form-label fw-semibold">Nama Toko <span
+                        <label for="name" class="form-label fw-semibold">Nama Mitra <span
                                 class="text-danger">*</span></label>
                         <input type="text" id="name" name="name"
                             class="form-control form-control-lg @error('name') is-invalid @enderror"
-                            placeholder="Masukkan nama toko Anda" value="{{ old('name', $shop->name ?? '') }}" required>
+                            placeholder="Masukkan nama mitra Anda" value="{{ old('name', $shop->name ?? '') }}" required>
                         @error('name')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -29,7 +29,7 @@
                     <div class="mb-3">
                         <label for="description" class="form-label fw-semibold">Deskripsi Toko</label>
                         <textarea id="description" name="description" class="form-control" rows="4"
-                            placeholder="Tuliskan deskripsi singkat tentang toko Anda...">{{ old('description', $shop->description ?? '') }}</textarea>
+                            placeholder="Tuliskan deskripsi singkat tentang mitra Anda...">{{ old('description', $shop->description ?? '') }}</textarea>
                     </div>
 
                     {{-- Tombol Aksi --}}

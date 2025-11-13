@@ -33,12 +33,6 @@
                         <div class="mb-3 mb-md-0">
                             <h4 class="fw-semibold mb-2">{{ $shop->name }}</h4>
                             <p class="text-muted mb-1">{{ $shop->description ?? 'Belum ada deskripsi' }}</p>
-                            <p class="mb-0">
-                                <strong>Status:</strong>
-                                <span class="badge {{ $shop->status == 'aktif' ? 'bg-success' : 'bg-secondary' }}">
-                                    {{ ucfirst($shop->status) }}
-                                </span>
-                            </p>
                         </div>
                         <div>
                             <a href="{{ route('vendor.shops.create') }}" class="btn btn-warning">

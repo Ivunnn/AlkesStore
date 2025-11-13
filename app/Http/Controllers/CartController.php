@@ -6,7 +6,7 @@ use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB; // Tetap import DB, mungkin berguna nanti
 
 class CartController extends Controller
 {
@@ -19,49 +19,52 @@ class CartController extends Controller
     public function store(Request $request, $productId)
     {
         $product = Product::findOrFail($productId);
+        $cart = Cart::where('user_id', Auth::id())
+            ->where('product_id', $productId)
+            ->first();
+
+        // Tentukan jumlah yang ingin ditambahkan (misal 1, atau dari request)
+        $quantityToAdd = 1; // Asumsi user mengklik tombol "tambah" 1x
+
+        $currentInCart = $cart ? $cart->quantity : 0;
+        $newQuantity = $currentInCart + $quantityToAdd;
 
         // 🛑 Cek stok produk
-        if ($product->stock <= 0) {
-            return back()->with('error', 'Stok produk habis!');
+        // Kita cek apakah stok yang ADA LEBIH KECIL dari yang DIINGINKAN
+        if ($product->stock < $newQuantity) {
+            return back()->with('error', 'Stok produk tidak mencukupi (tersisa ' . $product->stock . ').');
         }
 
-        DB::transaction(function () use ($product, $productId) {
-            // Kurangi stok produk
-            $product->decrement('stock', 1);
+        // TIDAK ADA PENGURANGAN STOK DI SINI
+        // DB::transaction(function () ... Dihapus
 
-            // Tambahkan ke keranjang (atau update quantity jika sudah ada)
-            $cart = Cart::where('user_id', Auth::id())
-                        ->where('product_id', $productId)
-                        ->first();
+        // Tambahkan ke keranjang (atau update quantity jika sudah ada)
+        if ($cart) {
+            // Jika sudah ada, update quantity-nya
+            $cart->increment('quantity', $quantityToAdd);
+        } else {
+            // Jika belum ada, buat entri baru
+            Cart::create([
+                'user_id' => Auth::id(),
+                'product_id' => $productId,
+                'quantity' => $newQuantity, // Langsung gunakan quantity baru
+            ]);
+        }
 
-            if ($cart) {
-                $cart->increment('quantity', 1);
-            } else {
-                Cart::create([
-                    'user_id' => Auth::id(),
-                    'product_id' => $productId,
-                    'quantity' => 1,
-                ]);
-            }
-        });
-
-        return back()->with('success', 'Produk ditambahkan ke keranjang dan stok berkurang.');
+        return back()->with('success', 'Produk ditambahkan ke keranjang.');
     }
 
     public function destroy($id)
     {
         $cart = Cart::where('id', $id)
-                    ->where('user_id', Auth::id())
-                    ->with('product')
-                    ->firstOrFail();
+            ->where('user_id', Auth::id())
+            ->firstOrFail(); // Tidak perlu ->with('product')
 
-        // Tambahkan kembali stok produk saat dihapus dari keranjang
-        if ($cart->product) {
-            $cart->product->increment('stock', $cart->quantity);
-        }
+        // TIDAK ADA PENGEMBALIAN STOK DI SINI
+        // if ($cart->product) { ... } Dihapus
 
         $cart->delete();
 
-        return back()->with('success', 'Produk dihapus dari keranjang dan stok dikembalikan.');
+        return back()->with('success', 'Produk dihapus dari keranjang.');
     }
 }
