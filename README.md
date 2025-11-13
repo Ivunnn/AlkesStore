@@ -91,3 +91,7 @@ php artisan migrate --seed
 
 php artisan serve
 ```
+
+Kredensial :
+Admin : admin@alkesstore.com </br>
+Password : admin123
