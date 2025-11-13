@@ -41,15 +41,44 @@ Vendor dapat mengelola produk, melihat laporan penjualan otomatis, sedangkan use
 
 ## 📸 Screenshot Aplikasi
 
+### Homepage
+
 ![Halaman Utama](screenshots/homepage)
+
+### Login
+
 ![Login](screenshots/login)
+
+### Register
+
 ![Register](screenshots/register)
+
+### User Feedback
+
 ![Feedback](screenshots/UserFeedback)
+
+### Cart
+
 ![Cart](screenshots/cart)
+
+### Admin Dashboard
+
 ![Admin Dashboard](screenshots/dashboardAdmin)
+
+### User Management
+
 ![User Management](screenshots/userManagement)
+
+### Vendor Dashboard
+
 ![Vendor Dashboard](screenshots/vendorDashboard)
+
+### Vendor Product Management
+
 ![Vendor Product Management](screenshots/vendorProduct)
+
+### Vendor Report
+
 ![Vendor Report](screenshots/vendorReport)
 
 ---
@@ -91,5 +120,6 @@ php artisan migrate --seed
 
 php artisan serve
 ```
+
 admin@alkesstore.com </br>
 Password : admin123
