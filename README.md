@@ -39,6 +39,21 @@ Vendor dapat mengelola produk, melihat laporan penjualan otomatis, sedangkan use
 
 ---
 
+## 📸 Screenshot Aplikasi
+
+[Halaman Utama](public/screenshots/homepage)
+[Login](public/screenshots/login) (public/screenshots/register)
+[Register](public/screenshots/register)
+[Feedback](public/screenshots/UserFeedback)
+[Cart](public/screenshots/cart)
+[Admin Dashboard](public/screenshots/dashboardAdmin)
+[User Management](public/screenshots/userManagement)
+[Vendor Dashboard](public/screenshots/vendorDashboard)
+[Vendor Product Management](public/screenshots/vendorProduct)
+[Vendor Report](public/screenshots/vendorReport)
+
+---
+
 ## 🧱 Struktur Fitur
 
 ### 📦 Model
