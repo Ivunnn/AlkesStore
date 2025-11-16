@@ -137,6 +137,11 @@
             class="{{ request()->routeIs('vendor.products*') ? 'active' : '' }}">
             <i class="bi bi-box-seam"></i> Produk Saya
         </a>
+        
+        <a href="{{ route('vendor.orders.index') }}"
+            class="{{ request()->routeIs('vendor.order*') ? 'active' : '' }}">
+            <i class="bi bi-cart"></i> Order
+        </a>
 
         <a href="{{ route('vendor.reports.index') }}"
             class="{{ request()->routeIs('vendor.reports*') ? 'active' : '' }}">

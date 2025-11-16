@@ -37,22 +37,24 @@
 
             <h4 class="mt-3">Total: <span class="text-success">Rp{{ number_format($total, 0, ',', '.') }}</span></h4>
 
-            <form action="{{ route('user.checkout.store') }}" method="POST" class="mt-4">
-                @csrf
-                <div class="mb-3">
-                    <label for="payment_method" class="form-label">Metode Pembayaran</label>
-                    <select name="payment_method" id="payment_method" class="form-control" required>
-                        <option value="">-- Pilih Metode Pembayaran --</option>
-                        <option value="transfer">Transfer Bank</option>
-                        <option value="cod">Bayar di Tempat (COD)</option>
-                        <option value="ewallet">E-Wallet</option>
-                    </select>
-                </div>
+        <form action="{{ route('user.checkout.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-3">
+                <label for="payment_method" class="form-label">Metode Pembayaran</label>
+                <select name="payment_method" id="payment_method" class="form-control" required>
+                    <option value="">-- Pilih Metode Pembayaran --</option>
+                    <option value="transfer">Transfer Bank</option>
+                    <option value="cod">Bayar di Tempat (COD)</option>
+                    <option value="ewallet">E-Wallet</option>
+                </select>
+            </div>
 
-                <button type="submit" class="btn btn-success">
-                    <i class="bi bi-check-circle"></i> Buat Pesanan
-                </button>
-            </form>
+            <div class="mb-3">
+                <label class="form-label">Upload Bukti Pembayaran</label>
+                <input type="file" name="payment_proof" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Buat Pesanan</button>
+        </form>
         @endif
     </div>
 @endsection

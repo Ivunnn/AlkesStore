@@ -10,10 +10,15 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'total_price', 'status', 'payment_method', 'payment_status',
+        'user_id',
+        'total_price',
+        'status',
+        'payment_method',
+        'payment_status',
+        'payment_proof',
+        'vendor_status'
     ];
 
-    // 🔗 Relasi
     public function user()
     {
         return $this->belongsTo(User::class);

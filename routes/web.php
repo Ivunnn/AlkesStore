@@ -15,6 +15,7 @@ use App\Http\Controllers\Vendor\VendorProductController;
 use App\Http\Controllers\Vendor\VendorShopController;
 use App\Http\Controllers\Vendor\VendorReportController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\Vendor\VendorOrderController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -35,8 +36,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 Route::middleware('auth')->group(function () {
 
     // Feedback untuk user (harus login)
-        Route::get('/user/feedback', [FeedbackController::class, 'index'])->name('user.feedback');
-        Route::post('/user/feedback', [FeedbackController::class, 'store'])->name('user.feedback.store');
+    Route::get('/user/feedback', [FeedbackController::class, 'index'])->name('user.feedback');
+    Route::post('/user/feedback', [FeedbackController::class, 'store'])->name('user.feedback.store');
 
 
     // Feedback untuk admin
@@ -57,6 +58,12 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['auth'])->prefix('vendor')->name('vendor.')->group(function () {
         Route::get('reports', [\App\Http\Controllers\Vendor\VendorReportController::class, 'index'])->name('reports.index');
         Route::delete('reports/{id}', [\App\Http\Controllers\Vendor\VendorReportController::class, 'destroy'])->name('reports.destroy');
+    });
+
+    Route::middleware(['auth'])->prefix('vendor')->group(function () {
+        Route::get('/orders', [VendorOrderController::class, 'index'])->name('vendor.orders.index');
+        Route::post('/orders/{id}/approve', [VendorOrderController::class, 'approve'])->name('vendor.orders.approve');
+        Route::post('/orders/{id}/reject', [VendorOrderController::class, 'reject'])->name('vendor.orders.reject');
     });
 
 
@@ -101,7 +108,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::post('/admin/reports/generate', [ReportController::class, 'generate'])->name('admin.reports.generate');
     Route::delete('/admin/reports/{id}', [ReportController::class, 'destroy'])->name('admin.reports.destroy');
 
-     Route::get('/admin/feedback', [FeedbackController::class, 'adminIndex'])->name('admin.feedback.index');
+    Route::get('/admin/feedback', [FeedbackController::class, 'adminIndex'])->name('admin.feedback.index');
 
     // Route::get('/admin/shops', [ShopController::class, 'index'])->name('admin.shops.index');
     // Route::get('/admin/shops/create', [ShopController::class, 'create'])->name('admin.shops.create');
