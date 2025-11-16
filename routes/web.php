@@ -16,6 +16,7 @@ use App\Http\Controllers\Vendor\VendorShopController;
 use App\Http\Controllers\Vendor\VendorReportController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Vendor\VendorOrderController;
+use App\Http\Controllers\Admin\CategoryController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -121,6 +122,15 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/products/create', [ProductController::class, 'create'])->name('admin.products.create');
     Route::post('/admin/products', [ProductController::class, 'store'])->name('admin.products.store');
     Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+
+    Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
+
+    Route::get('/admin/categories/create', [CategoryController::class, 'create'])->name('admin.categories.create');
+    Route::post('/admin/categories/store', [CategoryController::class, 'store'])->name('admin.categories.store');
+
+    Route::get('/admin/categories/edit/{id}', [CategoryController::class, 'edit'])->name('admin.categories.edit');
+    Route::put('/admin/categories/update/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
+    Route::delete('/admin/categories/delete/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
 
     Route::prefix('admin')->name('admin.')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::resource('users', UserController::class)->except(['show']);

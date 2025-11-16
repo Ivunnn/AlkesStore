@@ -176,6 +176,10 @@
             <i class="bi bi-book"></i> Report
         </a>
 
+        <a href="{{ route('admin.categories.index') }}" class="{{ request()->is('admin/categories') ? 'active' : '' }}">
+            <i class="bi bi-folder"></i> Kategori
+        </a>
+
         <a href="{{ route('admin.feedback.index') }}" class="{{ request()->is('admin/feedback') ? 'active' : '' }}">
             <i class="bi bi-star"></i> Ulasan
         </a>
