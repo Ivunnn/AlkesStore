@@ -11,50 +11,67 @@
                 Keranjang kamu kosong. <a href="{{ route('user.products.index') }}">Belanja sekarang</a>.
             </div>
         @else
-            <table class="table table-bordered mt-3">
-                <thead>
-                    <tr>
-                        <th>Produk</th>
-                        <th>Harga</th>
-                        <th>Jumlah</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php $total = 0; @endphp
-                    @foreach($carts as $cart)
-                        @php $subtotal = $cart->product->price * $cart->quantity;
-                        $total += $subtotal; @endphp
+
+                <div class="mt-2">
+                </div>
+                <table class="table table-bordered mt-3">
+                    <thead>
                         <tr>
-                            <td>{{ $cart->product->name }}</td>
-                            <td>Rp{{ number_format($cart->product->price, 0, ',', '.') }}</td>
-                            <td>{{ $cart->quantity }}</td>
-                            <td>Rp{{ number_format($subtotal, 0, ',', '.') }}</td>
+                            <th>Produk</th>
+                            <th>Harga</th>
+                            <th>Jumlah</th>
+                            <th>Subtotal</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @php $total = 0; @endphp
+                        @foreach($carts as $cart)
+                            @php $subtotal = $cart->product->price * $cart->quantity;
+                            $total += $subtotal; @endphp
+                            <tr>
+                                <td>{{ $cart->product->name }}</td>
+                                <td>Rp{{ number_format($cart->product->price, 0, ',', '.') }}</td>
+                                <td>{{ $cart->quantity }}</td>
+                                <td>Rp{{ number_format($subtotal, 0, ',', '.') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                        </table>
+                        <h4 class="mt-3">Total: <span class="text-success">Rp{{ number_format($total, 0, ',', '.') }}</span></h4>
+                <form action="{{ route('user.checkout.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <h4 class="mt-4">Informasi Penerima</h4>
+                    <div class="mb-3">
+                        <label class="form-label">Nama Penerima</label>
+                    <input type="text" name="recipient_name" class="form-control" placeholder="Nama lengkap penerima"
+                        value="{{ old('recipient_name', Auth::user()->name) }}" required>
+                    </div>
 
-            <h4 class="mt-3">Total: <span class="text-success">Rp{{ number_format($total, 0, ',', '.') }}</span></h4>
+                      <div  class="mb-3">
+                        <label class="form-label">No. HP Penerima</label>
+                        <input type="text" name="recipient_phone" class="form-control" placeholder="08xxxxxxx" required>
+                </div>
 
-        <form action="{{ route('user.checkout.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="mb-3">
-                <label for="payment_method" class="form-label">Metode Pembayaran</label>
-                <select name="payment_method" id="payment_method" class="form-control" required>
-                    <option value="">-- Pilih Metode Pembayaran --</option>
-                    <option value="transfer">Transfer Bank</option>
-                    <option value="cod">Bayar di Tempat (COD)</option>
-                    <option value="ewallet">E-Wallet</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Upload Bukti Pembayaran</label>
-                <input type="file" name="payment_proof" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-success">Buat Pesanan</button>
-        </form>
+                <div class="mb-3">
+                    <label class="form-label">Alamat Lengkap Penerima</label>
+                    <textarea name="recipient_address" class="form-control" rows="3" placeholder="Alamat lengkap pengiriman" required>{{ old('recipient_address') }}</textarea>
+                </div>
+                 <h4 class="mt-4">Informasi Pembayaran</h4>
+                   <div class="mb-3">
+                        <label for="payment_method" class="form-label">Metode Pembayaran</label>
+                      <select name="payment_method" id="payment_method" class="form-control" required>
+                            <option value="">-- Pilih Metode Pembayaran --</option>
+                            <option value="transfer">Transfer Bank</option>
+                            <option value="cod">Bayar di Tempat (COD)</option>
+                            <option value="ewallet">E-Wallet</option>
+                        </select>
+                </div>
+                    <div class="mb-3">
+                    <label class="form-label">Upload Bukti Pembayaran</label>
+                    <input type="file" name="payment_proof" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-success">Buat Pesanan</button>
+            </form>
         @endif
-    </div>
+        </div>
 @endsection

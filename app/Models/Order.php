@@ -16,7 +16,10 @@ class Order extends Model
         'payment_method',
         'payment_status',
         'payment_proof',
-        'vendor_status'
+        'vendor_status',
+        'recipient_name',
+        'recipient_address',
+        'recipient_phone',
     ];
 
     public function user()

@@ -6,7 +6,7 @@ use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB; // Tetap import DB, mungkin berguna nanti
+use Illuminate\Support\Facades\DB; 
 
 class CartController extends Controller
 {
@@ -30,13 +30,10 @@ class CartController extends Controller
         $newQuantity = $currentInCart + $quantityToAdd;
 
         // 🛑 Cek stok produk
-        // Kita cek apakah stok yang ADA LEBIH KECIL dari yang DIINGINKAN
+        // cek apakah stok yang ADA LEBIH KECIL dari yang DIINGINKAN
         if ($product->stock < $newQuantity) {
             return back()->with('error', 'Stok produk tidak mencukupi (tersisa ' . $product->stock . ').');
         }
-
-        // TIDAK ADA PENGURANGAN STOK DI SINI
-        // DB::transaction(function () ... Dihapus
 
         // Tambahkan ke keranjang (atau update quantity jika sudah ada)
         if ($cart) {

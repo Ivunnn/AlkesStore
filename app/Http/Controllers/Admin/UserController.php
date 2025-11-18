@@ -17,7 +17,7 @@ class UserController extends Controller
     }
 
     public function create()
-    {
+    {   
         return view('admin.users.create');
     }
 
@@ -44,7 +44,7 @@ class UserController extends Controller
                 'user_id' => $user->id,
                 'name' => 'Toko ' . $user->name,
                 'description' => 'Toko milik ' . $user->name,
-                'status' => 'approved', // bisa diubah ke 'pending' kalau butuh verifikasi admin
+                'status' => 'approved',
             ]);
         }
 

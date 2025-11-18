@@ -95,7 +95,7 @@
         }
 
         /* =========================================================
-        ⭐ PERUBAHAN DI SINI: Mobile & Tablet Responsiveness ⭐
+        ⭐ Mobile & Tablet Responsiveness ⭐
         =========================================================
         */
         @media (max-width: 992px) {

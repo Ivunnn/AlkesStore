@@ -40,6 +40,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/feedback', [FeedbackController::class, 'index'])->name('user.feedback');
     Route::post('/user/feedback', [FeedbackController::class, 'store'])->name('user.feedback.store');
 
+    Route::get('/products', [ProductController::class, 'userIndex'])
+        ->name('user.products.index');
+
+    Route::get('/products/{id}', [ProductController::class, 'show'])
+        ->name('user.products.show');
+
 
     // Feedback untuk admin
     Route::middleware(['auth', 'is_admin'])->group(function () {
@@ -84,11 +90,16 @@ Route::middleware('auth')->group(function () {
         Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
     });
 
-    // 💳 Orders
-    Route::get('/checkout', [OrderController::class, 'checkout'])->name('user.orders.checkout');
-    Route::post('/checkout', [OrderController::class, 'store'])->name('user.orders.store');
-    Route::get('/orders/history', [OrderController::class, 'history'])->name('user.orders.history');
+    Route::middleware(['auth'])->group(function () {
+        // Halaman Checkout
+        Route::get('/checkout', [OrderController::class, 'checkout'])->name('user.orders.checkout');
 
+        // Proses Simpan Pesanan
+        Route::post('/checkout/store', [OrderController::class, 'store'])->name('user.orders.store');
+
+        // Riwayat Pesanan
+        Route::get('/orders/history', [OrderController::class, 'history'])->name('user.orders.history');
+    });
     Route::middleware(['auth'])->group(function () {
         Route::get('/checkout', [OrderController::class, 'checkout'])->name('user.checkout');
         Route::post('/checkout', [OrderController::class, 'store'])->name('user.checkout.store');
